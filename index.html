@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fútbol Tienda - E-commerce</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: black;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            background-image: url('https://i.imgur.com/YqH8Zqg.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .logo-text {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #666;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid black;
+            color: black;
+        }
+
+        .btn-outline:hover {
+            background: #f5f5f5;
+        }
+
+        .btn-primary {
+            background: black;
+            border: none;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #e5e5e5;
+            padding: 4rem 2rem;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .hero-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            height: 400px;
+        }
+
+        .hero-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .hero-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .hero-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 2rem;
+            color: white;
+        }
+
+        .hero-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-card button {
+            background: white;
+            color: black;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Teams Section */
+        .teams-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .teams-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .teams-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .teams-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .teams-brand {
+            font-size: 3rem;
+            margin: 2rem 0;
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .team-card:hover {
+            background: #f5f5f5;
+        }
+
+        .team-logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Product Catalog */
+        .catalog {
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .catalog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .catalog-header {
+            margin-bottom: 2rem;
+        }
+
+        .catalog-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-title span {
+            font-size: 3rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .product-card button {
+            width: 100%;
+            background: black;
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .product-card button:hover {
+            background: #333;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content.large {
+            max-width: 900px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-footer {
+            margin-top: 1rem;
+        }
+
+        .link-text {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .link-text a {
+            color: #0066cc;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .link-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Product Detail Modal */
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .product-images {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-image {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .thumbnail {
+            width: 100%;
+            border-radius: 4px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+        }
+
+        .size-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .size-btn {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .size-btn.selected {
+            background: black;
+            color: white;
+        }
+
+        /* Cart */
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-size {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .cart-item-price {
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: red;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .cart-total {
+            border-top: 2px solid #ddd;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background: black;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo-icon {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-size: 24px;
+        }
+
+        .checkout-message {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .checkout-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo" onclick="showPage('home')">
+                <div class="logo-icon">⚽</div>
+                <span class="logo-text">FÚTBOL TIENDA</span>
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')">Inicio</a></li>
+                <li><a onclick="showPage('nike')">Clubes Nike</a></li>
+                <li><a onclick="showPage('adidas')">Clubes Adidas</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="toggleModal('cartModal')">
+                    🛒
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <button class="btn btn-outline" onclick="toggleModal('loginModal')">INICIAR SESIÓN</button>
+                <button class="btn btn-primary" onclick="toggleModal('registerModal')">REGISTRAR</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="homePage">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-card">
+                    <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600&h=800&fit=crop" alt="FC Barcelona">
+                    <div class="hero-card-overlay">
+                        <h3>FC BARCELONA 25/26</h3>
+                        <button onclick="showPage('nike')">COMPRA</button>
+                    </div>
+                </div>
+                <div class="hero-card">
+                    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&h=800&fit=crop" alt="Real Madrid">
+                    <div class="hero-card-overlay">
+                        <h3>REAL MADRID 25/26</h3>
+                        <button onclick="showPage('adidas')">COMPRA</button>
+                    </div>
+                </div>
+                <div class="hero-card">
+                    <img src="https://images.unsplash.com/photo-1511886929837-354d827aae26?w=600&h=800&fit=crop" alt="Atletico Madrid">
+                    <div class="hero-card-overlay">
+                        <h3>ATLETICO DE MADRID 25/26</h3>
+                        <button onclick="showPage('nike')">COMPRA</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nike Teams -->
+        <section class="teams-section">
+            <div class="teams-container">
+                <div class="teams-header">
+                    <h2>Clubes y Selecciones</h2>
+                    <p style="font-size: 1.2rem; color: #666;">cuidado con el escudo</p>
+                </div>
+                <div style="text-align: center;">
+                    <div class="teams-brand">✓ Nike</div>
+                </div>
+                <div class="teams-grid">
+                    <div class="team-card"><div class="team-logo">🔵🔴</div><div class="team-name">FC BARCELONA</div></div>
+                    <div class="team-card"><div class="team-logo">🔵🔴</div><div class="team-name">PARIS SAINT-GERMAIN</div></div>
+                    <div class="team-card"><div class="team-logo">🔴⚪</div><div class="team-name">ATLETICO DE MADRID</div></div>
+                    <div class="team-card"><div class="team-logo">🔵</div><div class="team-name">CHELSEA FC</div></div>
+                    <div class="team-card"><div class="team-logo">🔵⚫</div><div class="team-name">INTER</div></div>
+                    <div class="team-card"><div class="team-logo">🇫🇷</div><div class="team-name">FRANCIA</div></div>
+                    <div class="team-card"><div class="team-logo">🇧🇷</div><div class="team-name">BRASIL</div></div>
+                    <div class="team-card"><div class="team-logo">🏴󠁧󠁢󠁥󠁮󠁧U+E007F</div><div class="team-name">INGLATERRA</div></div>
+                    <div class="team-card"><div class="team-logo">🇳🇱</div><div class="team-name">PAISES BAJOS</div></div>
+                    <div class="team-card"><div class="team-logo">🇳🇴</div><div class="team-name">NORUEGA</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adidas Teams -->
+        <section class="teams-section" style="background: #f5f5f5;">
+            <div class="teams-container">
+                <div style="text-align: center;">
+                    <div class="teams-brand">⚡ Adidas</div>
+                </div>
+                <div class="teams-grid">
+                    <div class="team-card"><div class="team-logo">⚪</div><div class="team-name">REAL MADRID</div></div>
+                    <div class="team-card"><div class="team-logo">🔴</div><div class="team-name">LIVERPOOL</div></div>
+                    <div class="team-card"><div class="team-logo">🔴</div><div class="team-name">BAYERN MUNICH</div></div>
+                    <div class="team-card"><div class="team-logo">🔴</div><div class="team-name">ARSENAL</div></div>
+                    <div class="team-card"><div class="team-logo">🔴</div><div class="team-name">MANCHESTER UNITED</div></div>
+                    <div class="team-card"><div class="team-logo">🇨🇴</div><div class="team-name">COLOMBIA</div></div>
+                    <div class="team-card"><div class="team-logo">🇦🇷</div><div class="team-name">ARGENTINA</div></div>
+                    <div class="team-card"><div class="team-logo">🇪🇸</div><div class="team-name">ESPAÑA</div></div>
+                    <div class="team-card"><div class="team-logo">🇮🇹</div><div class="team-name">ITALIA</div></div>
+                    <div class="team-card"><div class="team-logo">🇧🇪</div><div class="team-name">BÉLGICA</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-logo">
+                <div class="footer-logo-icon">⚽</div>
+                <span style="font-size: 1.5rem; font-weight: bold;">FÚTBOL TIENDA</span>
+            </div>
+            <p style="color: #999;">© 2025 Fútbol Tienda. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <!-- Nike Catalog -->
+    <div id="nikePage" class="catalog hidden">
+        <div class="catalog-container">
+            <div class="catalog-header">
+                <h1>Clubes Nike</h1>
+                <div class="brand-title">
+                    <span>✓</span>
+                    <span style="font-size: 2rem; font-weight: bold;">Nike</span>
+                </div>
+            </div>
+            <div class="products-grid" id="nikeProducts"></div>
+        </div>
+    </div>
+
+    <!-- Adidas Catalog -->
+    <div id="adidasPage" class="catalog hidden">
+        <div class="catalog-container">
+            <div class="catalog-header">
+                <h1>Clubes Adidas</h1>
+                <div class="brand-title">
+                    <span>⚡</span>
+                    <span style="font-size: 2rem; font-weight: bold;">Adidas</span>
+                </div>
+            </div>
+            <div class="products-grid" id="adidasProducts"></div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Iniciar Sesión</h2>
+                <button class="close-btn" onclick="toggleModal('loginModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label>Correo electrónico</label>
+                    <input type="email" placeholder="tu@email.com">
+                </div>
+                <div class="input-group">
+                    <label>Contraseña</label>
+                    <input type="password" placeholder="********">
+                </div>
+                <a href="#" style="color: #0066cc; font-size: 0.9rem;">¿Olvidaste tu contraseña?</a>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="alert('Funcionalidad de login')">INICIAR SESIÓN</button>
+                <div class="link-text">
+                    ¿No tienes cuenta? <a onclick="toggleModal('loginModal'); toggleModal('registerModal')">Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Crear Cuenta</h2>
+                <button class="close-btn" onclick="toggleModal('registerModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Nombre</label>
+                        <input type="text" placeholder="Juan">
+                    </div>
+                    <div class="input-group">
+                        <label>Apellido</label>
+                        <input type="text" placeholder="Pérez">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Correo electrónico</label>
+                    <input type="email" placeholder="tu@email.com">
+                </div>
+                <div class="input-group">
+                    <label>Contraseña</label>
+                    <input type="password" placeholder="********">
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms">
+                    <label for="terms">Acepto los términos y condiciones</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="alert('Cuenta creada exitosamente')">CREAR CUENTA</button>
+                <div class="link-text">
+                    ¿Ya tienes cuenta? <a onclick="toggleModal('registerModal'); toggleModal('loginModal')">Inicia sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="productDetailName"></h2>
+                <button class="close-btn" onclick="toggleModal('productModal')">×</button>
+            </div>
+            <div class="product-detail">
+                <div class="product-images">
+                    <img id="productDetailImage" class="main-image" src="" alt="">
+                    <div class="thumbnail-grid">
+                        <img class="thumbnail" src="" alt="">
+                        <img class="thumbnail" src="" alt="">
+                        <img class="thumbnail" src="" alt="">
+                    </div>
+                </div>
+                <div>
+                    <h3 id="productDetailPrice" style="font-size: 2rem; margin-bottom: 2rem;"></h3>
+                    <div class="input-group" style="margin-bottom: 1.5rem;">
+                        <label>SELECCIONA UNA TALLA</label>
+                        <div class="size-selector">
+                            <button class="size-btn" onclick="selectSize('S')">S</button>
+                            <button class="size-btn" onclick="selectSize('M')">M</button>
+                            <button class="size-btn" onclick="selectSize('L')">L</button>
+                            <button class="size-btn" onclick="selectSize('XL')">XL</button>
+                        </div>
+                    </div>
+                    <div class="input-group" style="margin-bottom: 2rem;">
+                        <label>Añade parche de competición</label>
+                        <select>
+                            <option>Selecciona una opción</option>
+                            <option>La Liga</option>
+                            <option>Champions League</option>
+                            <option>Copa del Rey</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;" onclick="addToCart()">
+                        🛒 AGREGAR AL CARRITO
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Carrito de Compras</h2>
+                <button class="close-btn" onclick="toggleModal('cartModal')">×</button>
+            </div>
+            <div id="cartContent"></div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <div class="checkout-message">
+                <div class="checkout-icon">🚀</div>
+                <h2 style="margin-bottom: 1rem;">Próximamente</h2>
+                <p style="color: #666; margin-bottom: 2rem;">Esta funcionalidad estará disponible muy pronto</p>
+                <button class="btn btn-primary" style="padding: 1rem 3rem;" onclick="toggleModal('checkoutModal')">VOLVER</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product Data
+        const nikeProducts = [
+            { id: 1, name: 'Camiseta FC Barcelona 25/26', price: 80000, image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=400&fit=crop' },
+            { id: 2, name: 'Camiseta Paris Saint-Germain 25/26', price: 75000, image: 'https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400&h=400&fit=crop' },
+            { id: 3, name: 'Camiseta Atlético de Madrid 25/26', price: 60000, image: 'https://images.unsplash.com/photo-1511886929837-354d827aae26?w=400&h=400&fit=crop' },
+            { id: 4, name: 'Camiseta Chelsea FC 25/26', price: 65000, image: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&h=400&fit=crop' },
+            { id: 5, name: 'Camiseta Inter 25/26', price: 80000, image: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=400&fit=crop' },
+            { id: 6, name: 'Camiseta Selección Francia 24/25', price: 75000, image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400&h=400&fit=crop' },
+            { id: 7, name: 'Camiseta Selección Brasil 24/25', price: 65000, image: 'https://images.unsplash.com/photo-1551731409-43eb3e517a1a?w=400&h=400&fit=crop' },
+            { id: 8, name: 'Camiseta Selección Inglaterra 24/25', price: 60000, image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop' },
+            { id: 9, name: 'Camiseta Selección Países Bajos 24/25', price: 65000, image: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=400&fit=crop' },
+            { id: 10, name: 'Camiseta Selección Noruega 24/25', price: 70000, image: 'https://images.unsplash.com/photo-1577223625816-7546f64a3f60?w=400&h=400&fit=crop' }
+        ];
+
+        const adidasProducts = [
+            { id: 11, name: 'Camiseta Real Madrid 25/26', price: 80000, image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=400&fit=crop' },
+            { id: 12, name: 'Camiseta Liverpool 25/26', price: 70000, image: 'https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?w=400&h=400&fit=crop' },
+            { id: 13, name: 'Camiseta Bayern Munich 25/26', price: 65000, image: 'https://images.unsplash.com/photo-1587329310686-91414b8e3cb7?w=400&h=400&fit=crop' },
+            { id: 14, name: 'Camiseta Arsenal 25/26', price: 60000, image: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=400&fit=crop' },
+            { id: 15, name: 'Camiseta Manchester United 25/26', price: 60000, image: 'https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=400&h=400&fit=crop' },
+            { id: 16, name: 'Camiseta Selección Colombia 24/25', price: 70000, image: 'https://images.unsplash.com/photo-1614632537239-d3da6e50a1f6?w=400&h=400&fit=crop' },
+            { id: 17, name: 'Camiseta Selección Argentina 24/25', price: 75000, image: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=400&fit=crop' },
+            { id: 18, name: 'Camiseta Selección España 24/25', price: 70000, image: 'https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400&h=400&fit=crop' },
+            { id: 19, name: 'Camiseta Selección Italia 24/25', price: 80000, image: 'https://images.unsplash.com/photo-1511886929837-354d827aae26?w=400&h=400&fit=crop' },
+            { id: 20, name: 'Camiseta Selección Bélgica 25/26', price: 80000, image: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&h=400&fit=crop' }
+        ];
+
+        // State
+        let cart = [];
+        let selectedProduct = null;
+        let selectedSize = '';
+
+        // Format Price
+        function formatPrice(price) {
+            return 'COP $' + price.toLocaleString();
+        }
+
+        // Show/Hide Pages
+        function showPage(page) {
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('nikePage').classList.add('hidden');
+            document.getElementById('adidasPage').classList.add('hidden');
+
+            if (page === 'home') {
+                document.getElementById('homePage').classList.remove('hidden');
+            } else if (page === 'nike') {
+                document.getElementById('nikePage').classList.remove('hidden');
+                renderProducts('nike');
+            } else if (page === 'adidas') {
+                document.getElementById('adidasPage').classList.remove('hidden');
+                renderProducts('adidas');
+            }
+        }
+
+        // Render Products
+        function renderProducts(brand) {
+            const products = brand === 'nike' ? nikeProducts : adidasProducts;
+            const container = document.getElementById(brand + 'Products');
+            
+            container.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <img class="product-image" src="${product.image}" alt="${product.name}">
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">${formatPrice(product.price)}</div>
+                        <button onclick="openProductDetail(${product.id})">COMPRA</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle Modal
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('active');
+        }
+
+        // Open Product Detail
+        function openProductDetail(productId) {
+            const product = [...nikeProducts, ...adidasProducts].find(p => p.id === productId);
+            if (!product) return;
+
+            selectedProduct = product;
+            selectedSize = '';
+
+            document.getElementById('productDetailName').textContent = product.name;
+            document.getElementById('productDetailPrice').textContent = formatPrice(product.price);
+            document.getElementById('productDetailImage').src = product.image;
+            
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => thumb.src = product.image);
+
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
+
+            toggleModal('productModal');
+        }
+
+        // Select Size
+        function selectSize(size) {
+            selectedSize = size;
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                if (btn.textContent === size) {
+                    btn.classList.add('selected');
+                }
+            });
+        }
+
+        // Add to Cart
+        function addToCart() {
+            if (!selectedSize) {
+                alert('Por favor selecciona una talla');
+                return;
+            }
+
+            cart.push({
+                ...selectedProduct,
+                size: selectedSize
+            });
+
+            updateCartBadge();
+            toggleModal('productModal');
+            toggleModal('cartModal');
+            renderCart();
+        }
+
+        // Update Cart Badge
+        function updateCartBadge() {
+            document.getElementById('cartBadge').textContent = cart.length;
+        }
+
+        // Render Cart
+        function renderCart() {
+            const cartContent = document.getElementById('cartContent');
+            
+            if (cart.length === 0) {
+                cartContent.innerHTML = '<div class="empty-cart">Tu carrito está vacío</div>';
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+            cartContent.innerHTML = `
+                <div class="cart-items">
+                    ${cart.map((item, index) => `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="cart-item-info">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-size">Talla: ${item.size}</div>
+                                <div class="cart-item-price">${formatPrice(item.price)}</div>
+                            </div>
+                            <button class="remove-btn" onclick="removeFromCart(${index})">×</button>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span>${formatPrice(total)}</span>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; padding: 1rem; margin-top: 1rem;" onclick="checkout()">
+                    FINALIZAR COMPRA
+                </button>
+            `;
+        }
+
+        // Remove from Cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartBadge();
+            renderCart();
+        }
+
+        // Checkout
+        function checkout() {
+            toggleModal('cartModal');
+            toggleModal('checkoutModal');
+        }
+
+        // Initialize
+        showPage('home');
+    </script>
+</body>
+</html>
