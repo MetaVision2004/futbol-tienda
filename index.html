@@ -42,29 +42,29 @@
         }
 
         .logo-icon {
-            width: 30px;  /* Reducido de 40px a 30px */
-            height: 30px; /* Reducido de 40px a 30px */
-            background-color: black;
-            border-radius: 50%;
+            width: 25px;  /* Reducido de 30px a 25px */
+            height: 25px; /* Reducido de 30px a 25px */
+            background-color: transparent; /* Cambiado a transparente para el nuevo logo */
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 16px;  /* Reducido de 20px a 16px para que se ajuste mejor */
+            font-size: 14px;  /* Reducido de 16px a 14px */
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
         }
-        .logo-adidas img {
-                width: 100px;
-                height: auto;
-                margin: 1rem 0;
-                object-fit: contain;
-            }
-        
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem; /* Reducido el espacio entre el icono y el texto */
+            cursor: pointer;
+        }
+
         .logo-text {
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1rem; /* Ajustado el tamaño del texto */
         }
 
         .nav-links {
